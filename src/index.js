@@ -6,7 +6,7 @@ const createNotEnumerableProperty = (propertyName) => {
     return propertyName};
 const createProtoMagicObject = () => { var a = new Function(); a.prototype = a.__proto__ ; return a;};
 const incrementor = () =>  {
-    var _value;
+ /*   var _value;
     if (typeof this.value == 'undefined'){
         this.value = 1;
     } else{
@@ -30,13 +30,27 @@ const incrementor = () =>  {
     //   var i = _incrementor();
     // console.log(_incrementor()() + 5);
     return _incrementor;
-
+*/
 
 
 }
 ;
 
-const asyncIncrementor = () => {};
+const asyncIncrementor = () => {
+    if ( typeof this.asyncIncr == 'undefined'){
+        this.asyncIncr = 1;
+    } else{
+        this.asyncIncr++;
+    }
+    var value = this.asyncIncr;
+
+    return new Promise(resolve => {
+        setTimeout(() => {
+        resolve(value);
+    }, 10);
+});};
+
+
 const createIncrementer = () => {
     var value = 0;
     return {
@@ -56,7 +70,19 @@ const returnBackInSecond = (argument) => {
 }, 1000);
 });};
 const getDeepPropertiesCount = () => {};
-const createSerializedObject = () => (new Object(1));
+const createSerializedObject = () => {
+
+    let a = {field: "value"};
+    // a.prototype = Object;
+
+  //  var prototypeA = Object.getPrototypeOf(a);
+   // a.__proto__.valueOf = function(){ return JSON.stringify(this)};
+    Object.defineProperty(a, "valueOf", {value: function() { return JSON.stringify(this)}});
+
+  //  debugger;
+    return a;
+
+};
 const toBuffer = () => {};
 
 const sortByProto = (srcArr) => {
@@ -82,7 +108,6 @@ const sortByProto = (srcArr) => {
                 result.unshift(cur);
             }
         }
-        //  if(cur.getPrototypeOf())
     }
 
     return result;
