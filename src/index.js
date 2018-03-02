@@ -4,7 +4,7 @@ const createEnumerableProperty = () => {};
 const createNotEnumerableProperty = (propertyName) => {
     Object.defineProperty(Object.prototype, propertyName, ({enumerable: false, get: function(){ return value;}, set: function(newVal){value = newVal;}}));
     return propertyName};
-const createProtoMagicObject = () => { var a = new Function(); a.prototype = a.__proto__ ; return a;};
+const createProtoMagicObject = () => { var a = function() {return {};}; a.prototype = a.__proto__ ; return a;};
 const incrementor = (() =>  {
     var _value = 0;
 
