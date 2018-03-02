@@ -52,15 +52,60 @@ const returnBackInSecond = (argument) => {
     resolve(argument);
 }, 1000);
 });};
-const getDeepPropertiesCount = () => {};
+const getDeepPropertiesCount = (obj) => {
+
+    function _recursive(obj) {
+        var amount = 0;
+        if (obj.length != 0){
+            for (key in obj){
+                if (Object.getOwnPropertyNames(obj[key]).length != 0)
+                {
+                    amount++;
+                    amount = amount + _recursive(obj[key]);
+                }
+                else
+                {
+                    amount++;
+                }
+            }
+        } else{
+            amount++;
+        }
+        return amount;
+    }
+
+
+
+    var amount = 0;
+    for (key in obj) {
+        if (Object.getOwnPropertyNames(obj[key]).length != 0)
+        {
+            amount++;
+            amount = amount + _recursive(obj[key]);
+        }
+        else
+        {
+            amount++;
+        }
+
+    }
+
+    return amount;
+
+
+};
 const createSerializedObject = () => {
 
+    Object.defineProperty( Object.getPrototypeOf(this), "valueOf", {value: function() { return JSON.stringify(this)}, enumerable: true});
     let a = {field: "value"};
     // a.prototype = Object;
 
-  //  var prototypeA = Object.getPrototypeOf(a);
-   // a.__proto__.valueOf = function(){ return JSON.stringify(this)};
-    Object.defineProperty(a, "valueOf", {value: function() { return JSON.stringify(this)}});
+    var prototypeA = Object.getPrototypeOf(a);
+  //  Object.defineProperty( Object.getPrototypeOf(this), "valueOf", {value: function() { return JSON.stringify(this)}, enumerable: true});
+   // a.valueOf = function(){ return JSON.stringify(this)};
+
+
+  //  Object.defineProperty(a, "valueOf", {value: function() { return JSON.stringify(this)}});
 
   //  debugger;
     return a;
