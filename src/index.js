@@ -5,35 +5,18 @@ const createNotEnumerableProperty = (propertyName) => {
     Object.defineProperty(Object.prototype, propertyName, ({enumerable: false, get: function(){ return value;}, set: function(newVal){value = newVal;}}));
     return propertyName};
 const createProtoMagicObject = () => { var a = new Function(); a.prototype = a.__proto__ ; return a;};
-const incrementor = () =>  {
- /*   var _value;
-    if (typeof this.value == 'undefined'){
-        this.value = 1;
-    } else{
-        this.value++;
-    }
-
-    var _value = this.value;
-
+const incrementor = (() =>  {
+    var _value = 0;
 
     function _incrementor() {
         _value++;
-        this.value = _value;
         return _incrementor;
     };
 
-    //  Object.defineProperty(_incrementor, "valueOf", {value: function() { return _value; }});
-    _incrementor.valueOf = function () { return _value };
+   _incrementor.valueOf = function() { return _value };
 
-   // _incrementor.prototype = Number;
-
-    //   var i = _incrementor();
-    // console.log(_incrementor()() + 5);
     return _incrementor;
-*/
-
-
-}
+})()
 ;
 
 const asyncIncrementor = () => {
