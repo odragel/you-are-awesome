@@ -95,21 +95,9 @@ const getDeepPropertiesCount = (obj) => {
 
 };
 const createSerializedObject = () => {
-
-    Object.defineProperty( Object.getPrototypeOf(this), "valueOf", {value: function() { return JSON.stringify(this)}, enumerable: true});
-    let a = {field: "value"};
-    // a.prototype = Object;
-
-    var prototypeA = Object.getPrototypeOf(a);
-  //  Object.defineProperty( Object.getPrototypeOf(this), "valueOf", {value: function() { return JSON.stringify(this)}, enumerable: true});
-   // a.valueOf = function(){ return JSON.stringify(this)};
-
-
-  //  Object.defineProperty(a, "valueOf", {value: function() { return JSON.stringify(this)}});
-
-  //  debugger;
-    return a;
-
+  let sObj = {key: "value"};
+  Object.defineProperty(sObj, "toJSON", {value: function() { return sObj.toString();}});
+  return sObj;
 };
 const toBuffer = () => {};
 
